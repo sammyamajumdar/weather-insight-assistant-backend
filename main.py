@@ -104,25 +104,25 @@ def get_llm_response(query: QueryRequest):
     except Exception as e: 
         raise HTTPException(status_code=500, detail=str(e))
     
-@app.get("/weather_data")
-def get_data(
-    start_datetime: datetime = Query(..., description="Start datetime (YYYY-MM-DD HH:MM:SS)"),
-    end_datetime: datetime = Query(..., description="End datetime (YYYY-MM-DD HH:MM:SS)"),
-    schema: str = Query("dbo", description="Database schema")
-):
+class WeatherDataRequest(BaseModel):
+    start_datetime: datetime
+    end_datetime: datetime
+    schema: str = "dbo"
+
+@app.post("/weather_data")
+def get_data(request: WeatherDataRequest):
     try:
-        
         db_engine = create_engine(database_connection_string % quote_plus(database_password))
         with db_engine.connect() as conn:
             query = text(f"""
                 SELECT temperature, wind_speed, sun_shine, time
-                FROM [{schema}].[curated_weather_data]
+                FROM [{request.schema}].[curated_weather_data]
                 WHERE time >= :start_datetime AND time <= :end_datetime
                 ORDER BY time
             """)
             result = conn.execute(query, {
-                "start_datetime": start_datetime,
-                "end_datetime": end_datetime
+                "start_datetime": request.start_datetime,
+                "end_datetime": request.end_datetime
             })
 
             columns = ["temperature", "wind_speed", "sun_shine", "time"]
