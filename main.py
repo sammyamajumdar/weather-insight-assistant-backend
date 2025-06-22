@@ -1,13 +1,14 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, Query, HTTPException
 from pydantic import BaseModel
 from typing import Optional, Any
 from sqlalchemy.engine import create_engine
 from urllib.parse import quote_plus
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+from datetime import datetime
 import os
 from urllib.parse import quote_plus
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from langchain_community.agent_toolkits.sql.base import create_sql_agent
 from langchain.agents.agent_types import AgentType
 from langchain.sql_database import SQLDatabase
@@ -101,4 +102,33 @@ def get_llm_response(query: QueryRequest):
         llm_response = llm_agent.invoke(base_prompt + query.query)
         return {"response": llm_response}
     except Exception as e: 
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@app.get("/weather_data")
+def get_data(
+    start_datetime: datetime = Query(..., description="Start datetime (YYYY-MM-DD HH:MM:SS)"),
+    end_datetime: datetime = Query(..., description="End datetime (YYYY-MM-DD HH:MM:SS)"),
+    schema: str = Query("dbo", description="Database schema")
+):
+    try:
+        
+        db_engine = create_engine(database_connection_string % quote_plus(database_password))
+        with db_engine.connect() as conn:
+            query = text(f"""
+                SELECT temperature, wind_speed, sun_shine, time
+                FROM [{schema}].[curated_weather_data]
+                WHERE time >= :start_datetime AND time <= :end_datetime
+                ORDER BY time
+            """)
+            result = conn.execute(query, {
+                "start_datetime": start_datetime,
+                "end_datetime": end_datetime
+            })
+
+            columns = ["temperature", "wind_speed", "sun_shine", "time"]
+            data = [dict(zip(columns, row)) for row in result.fetchall()]
+
+        return {"data": data}
+
+    except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
