@@ -23,15 +23,6 @@ The backend runs a containerised FastAPI service on Azure Container Apps. This s
 ### Frontend
 The frontend uses React, Node and Tailwind CSS. It is hosted on Azure App Service (Static Web Apps). 
 
-# Enhancements
-
-1. Consume energy demand data corresponding to weather data and create visualisations. 
-2. Add feature to create, manage and store user specific data and information.
-3. Improvements to UI (including using a framework like Vite or NextJS). 
-4. Build analytics on Microsoft Fabric data warehouse. 
-5. Provide support for more locations based on user requirements.
-6. Add connectors for multiple data sources so users can upload / provide their own data sources to trigger the end to end pipeline.
-
 # Local Setup
 
 1. Clone the backend service from [here](https://github.com/sammyamajumdar/weather-insight-assistant-backend.git)
@@ -45,6 +36,15 @@ The frontend uses React, Node and Tailwind CSS. It is hosted on Azure App Servic
 
 # Azure setup
 Required Services: Azure Foundry AI, Azure SQL Database, Azure Data Factory, Azure Container Apps, Azure App Services
+
+# Future Enhancements
+
+1. Consume energy demand data corresponding to weather data and create visualisations. 
+2. Add feature to create, manage and store user specific data and information.
+3. Improvements to UI (including using a framework like Vite or NextJS). 
+4. Build analytics on Microsoft Fabric data warehouse. 
+5. Provide support for more locations based on user requirements.
+6. Add connectors for multiple data sources so users can upload / provide their own data sources to trigger the end to end pipeline.
 
 # Next Steps
 1. Terraform module
