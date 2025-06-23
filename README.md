@@ -38,9 +38,10 @@ The frontend uses React, Node and Tailwind CSS. It is hosted on Azure App Servic
 2. Clone the frontend service from [here](https://github.com/sammyamajumdar/weather-insight-assistant-frontend.git) 
 3. Create virtual environment and run pip install -r requirements.txt
 4. Generate required environment variables from the .env.template file and populate the .env file (Deploy and configure Azure services from next section)
-5. Run python -m fastapi run main.py from the backend service directory (API endpoints will be exposed in port 8000)
-6. Run npm install from the frontend service directory
-7. Run npm run start from the terminal
+5. Run tests with python -m unittest discover -s tests from root directory. 
+6. Run python -m fastapi run main.py from the backend service directory (API endpoints will be exposed in port 8000)
+7. Run npm install from the frontend service directory
+8. Run npm run start from the terminal
 
 # Azure setup
 Required Services: Azure Foundry AI, Azure SQL Database, Azure Data Factory, Azure Container Apps, Azure App Services
