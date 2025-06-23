@@ -21,7 +21,7 @@ The backend runs a containerised FastAPI service on Azure Container Apps. This s
 | /get_weather data   | POST | returns weather data for visualisation  |
 
 ### Frontend
-The frontend uses React, Node and Tailwind CSS. It is hosted on Azure App Service (Static Web Apps). 
+The frontend service uses React, Node and Tailwind CSS. It is hosted on Azure App Service (Static Web Apps). 
 
 # Local Setup
 
