@@ -4,15 +4,9 @@ to answer queries based on weather data sourced from meteostat.com.
 URL: https://black-ground-088a26003.6.azurestaticapps.net/ 
 
 # Features
-1. The application is capable of responding to queries related to weather data. The application uses an SQL agent
-that generates an appropriate SQL query based on the user prompt, and uses the returned data to augment the LLM's context.
-This results in responses that are grounded in the user data. 
-
-2. The left side has the chat interface, with options to send a message, and clear to delete the session. The top-right 
-displays a wind-speed and temperature v date time graph. This combined with energy demand data can be used to find correlation
-between temp/wind-speed and electricity demand. 
-
-3. Bottom-right displays a basic data summary from the connected SQL database. 
+1. QA Layer on structured data. 
+2. Weather trends visualisation. 
+3. Live Data summary.
 
 # Architecture
 
