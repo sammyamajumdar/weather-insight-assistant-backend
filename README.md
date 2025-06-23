@@ -1,6 +1,6 @@
-# Weather Insights Assistant
+# Weather Insight Assistant
 This is the weather insights assistant application. This application uses a Large Language Model (GPT 4) 
-to answer queries based on weather data sourced from meteostat.com.
+to answer queries based on weather data sourced from meteostat.com.  
 URL: https://black-ground-088a26003.6.azurestaticapps.net/ 
 
 # Features
