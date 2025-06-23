@@ -34,8 +34,8 @@ The frontend uses React, Node and Tailwind CSS. It is hosted on Azure App Servic
 
 # Local Setup
 
-1. Clone the backend service from [here](https://github.com/sammyamajumdar/weather-predictions-app-backend)
-2. Clone the frontend service from [here](https://github.com/sammyamajumdar/weather-predictions-app-frontend.git) 
+1. Clone the backend service from [here](https://github.com/sammyamajumdar/weather-insight-assistant-backend.git)
+2. Clone the frontend service from [here](https://github.com/sammyamajumdar/weather-insight-assistant-frontend.git) 
 3. Create virtual environment and run pip install -r requirements.txt
 4. Generate required environment variables from the .env.template file and populate the .env file (Deploy and configure Azure services from next section)
 5. Run python -m fastapi run main.py from the backend service directory (API endpoints will be exposed in port 8000)
