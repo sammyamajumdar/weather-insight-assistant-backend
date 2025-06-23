@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from datetime import datetime
 import os
+import re
 from urllib.parse import quote_plus
 from sqlalchemy import create_engine, text
 from langchain_community.agent_toolkits.sql.base import create_sql_agent
@@ -99,8 +100,22 @@ def get_llm_response(query: QueryRequest):
         db = database_connector(database_connection_string, database_password, schema="dbo")
         azurellm = get_llm_client()
         llm_agent = get_sql_agent(azurellm, db)
-        llm_response = llm_agent.invoke(base_prompt + query.query)
-        return {"response": llm_response}
+        try: 
+            llm_response = llm_agent.invoke(base_prompt + query.query)
+            return {"response": llm_response}
+        except Exception as e:
+            raw_output = None
+            for attr in ["output", "response", "llm_output", "text"]:
+                if hasattr(e, attr):
+                    raw_output = getattr(e, attr)
+                    break
+            if raw_output is None:
+                match = re.search(r"Could not parse LLM output:\s*`(.+?)`", str(e), re.DOTALL)
+                if match:
+                    raw_output = match.group(1)
+                else:
+                    raw_output = str(e)
+            return {"response": raw_output}
     except Exception as e: 
         raise HTTPException(status_code=500, detail=str(e))
     
